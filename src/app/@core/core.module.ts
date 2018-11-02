@@ -2,7 +2,7 @@ import { AuthGuardService } from './../services/auth-guard.service';
 import { RoleProvider } from './../providers/role.provider';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthStrategy, NbAuthJWTToken, NbPasswordAuthStrategy } from '@nebular/auth';
+import { NbAuthModule, NbAuthJWTToken, NbPasswordAuthStrategy } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
@@ -29,13 +29,13 @@ const socialLinks = [
 ];
 
 
-const formSetting: any = {
-  strategy: "email",
-  redirectDelay: 0,
-  showMessages: {
-    success: true
-  }
-};
+// const formSetting: any = {
+//   strategy: 'email',
+//   redirectDelay: 0,
+//   showMessages: {
+//     success: true
+//   }
+// };
 
 
 export class NbSimpleRoleProvider extends NbRoleProvider {
@@ -49,61 +49,61 @@ export const NB_CORE_PROVIDERS = [...DataModule.forRoot().providers, ...NbAuthMo
            {
              strategies: [
                NbPasswordAuthStrategy.setup({
-                 name: "email",
-                 baseEndpoint: "http://back.tmp/api",
+                 name: 'email',
+                 baseEndpoint: 'http://back.tmp/api',
                  login: {
-                   endpoint: "/login",
-                   method: "post"
+                   endpoint: '/login',
+                   method: 'post',
                  },
                  register: {
-                   endpoint: "/auth/sign-up",
-                   method: "post"
+                   endpoint: '/auth/sign-up',
+                   method: 'post',
                  },
                  logout: {
-                   endpoint: "/auth/sign-out",
-                   method: "post"
+                   endpoint: '/auth/sign-out',
+                   method: 'post',
                  },
                  requestPass: {
-                   endpoint: "/auth/request-pass",
-                   method: "post"
+                   endpoint: '/auth/request-pass',
+                   method: 'post',
                  },
                  resetPass: {
-                   endpoint: "/auth/reset-pass",
-                   method: "post"
+                   endpoint: '/auth/reset-pass',
+                   method: 'post',
                  },
                  token: {
                    class: NbAuthJWTToken,
-                   key: "access_token" // this parameter tells where to look for the token
-                 }
-               })
+                   key: 'access_token',
+                 },
+               }),
              ],
              forms: {
                login: {
-                 socialLinks: socialLinks
+                 socialLinks: socialLinks,
                },
                register: {
-                 socialLinks: socialLinks
-               }
-             }
-           }
-         ).providers, 
+                 socialLinks: socialLinks,
+               },
+             },
+           },
+         ).providers,
          NbSecurityModule.forRoot({
            accessControl: {
              guest: {
-               view: []
+               view: [],
              },
              user: {
-               parent: "guest",
-               view: ["news", "comments"],
-               create: "comments"
+               parent: 'guest',
+               view: ['news', 'comments'],
+               create: 'comments',
              },
              moderator: {
-               parent: "user",
-               create: "news",
-               remove: "*"
-             }
-           }
-         }).providers, { provide: NbRoleProvider, useClass: RoleProvider }, 
+               parent: 'user',
+               create: 'news',
+               remove: '*',
+             },
+           },
+         }).providers, { provide: NbRoleProvider, useClass: RoleProvider },
          AnalyticsService,
          AuthGuardService];
 
