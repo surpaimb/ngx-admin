@@ -5,7 +5,7 @@
  */
 export const environment = {
   production: true,
-  API_URL: 'http://back.tmp',
+  API_URL: 'http://back.tmp/api',
   TOKEN_NAME: 'token',
   DB_DATABAS: 'caiyun.db',
   LOCAL_URL: 'http://localhost:8100/',

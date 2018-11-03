@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { AuthGuardService } from './../services/auth-guard.service';
 import { RoleProvider } from './../providers/role.provider';
 import { CylInterceptor } from './../providers/cyl-interceptor';
@@ -52,7 +53,7 @@ export const NB_CORE_PROVIDERS = [
     strategies: [
       NbPasswordAuthStrategy.setup({
         name: 'email',
-        baseEndpoint: 'http://back.tmp/api',
+        baseEndpoint: `${environment.API_URL}`,
         login: {
           endpoint: '/login',
           method: 'post',
@@ -91,11 +92,10 @@ export const NB_CORE_PROVIDERS = [
   NbSecurityModule.forRoot({
     accessControl: {
       guest: {
-        view: [],
+        view: '*',
       },
       user: {
         parent: 'guest',
-        view: ['news', 'comments'],
         create: 'comments',
       },
       moderator: {

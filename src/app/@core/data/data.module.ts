@@ -1,3 +1,4 @@
+import { ApiConfigService } from './api-config.service';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -33,23 +34,18 @@ const SERVICES = [
   TrafficBarService,
   ProfitBarAnimationChartService,
   LayoutService,
+  ApiConfigService,
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-  ],
-  providers: [
-    ...SERVICES,
-  ],
+  imports: [CommonModule],
+  providers: [...SERVICES],
 })
 export class DataModule {
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{
       ngModule: DataModule,
-      providers: [
-        ...SERVICES,
-      ],
+      providers: [...SERVICES],
     };
   }
 }

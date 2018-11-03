@@ -1,3 +1,5 @@
+import { ApiConfigService } from './api-config.service';
+import { HttpClient } from '@angular/common/http';
 import { of as observableOf, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -16,7 +18,7 @@ export class UserService {
 
   private userArray: any[];
 
-  constructor() {
+  constructor(private http: HttpClient, private apiConfig: ApiConfigService) {
     // this.userArray = Object.values(this.users);
   }
 
@@ -29,7 +31,8 @@ export class UserService {
   }
 
   getUser(): Observable<any> {
-    counter = (counter + 1) % this.userArray.length;
-    return observableOf(this.userArray[counter]);
+    // counter = (counter + 1) % this.userArray.length;
+    // return observableOf(this.userArray[counter]);
+    return this.http.get(this.apiConfig.getApiByName('current.users'));
   }
 }

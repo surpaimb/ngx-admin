@@ -11,9 +11,16 @@ import {
 } from '@nebular/auth';
 
 const routes: Routes = [
-  { path: 'pages',
+  {
+    path: 'shops',
     canActivate: [AuthGuardService],
-    loadChildren: 'app/pages/pages.module#PagesModule' },
+    loadChildren: 'app/shops/shops.module#ShopsModule',
+  },
+  {
+    path: 'pages',
+    canActivate: [AuthGuardService],
+    loadChildren: 'app/pages/pages.module#PagesModule',
+  },
   {
     path: 'auth',
     component: NbAuthComponent,
@@ -26,26 +33,26 @@ const routes: Routes = [
         path: 'login',
         component: NbLoginComponent,
       },
-      {
-        path: 'register',
-        component: NbRegisterComponent,
-      },
+      // {
+      //   path: 'register',
+      //   component: NbRegisterComponent,
+      // },
       {
         path: 'logout',
         component: NbLogoutComponent,
       },
-      {
-        path: 'request-password',
-        component: NbRequestPasswordComponent,
-      },
+      // {
+      //   path: 'request-password',
+      //   component: NbRequestPasswordComponent,
+      // },
       {
         path: 'reset-password',
         component: NbResetPasswordComponent,
       },
     ],
   },
-  { path: '', redirectTo: 'pages', pathMatch: 'full' },
-  { path: '**', redirectTo: 'pages' },
+  { path: '', redirectTo: 'shops', pathMatch: 'full' },
+  { path: '**', redirectTo: 'shops' },
 ];
 
 const config: ExtraOptions = {
@@ -56,5 +63,4 @@ const config: ExtraOptions = {
   imports: [RouterModule.forRoot(routes, config)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

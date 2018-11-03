@@ -1,4 +1,4 @@
-import { NbAuthService, NbAuthJWTToken } from '@nebular/auth';
+import { NbAuthService, NbAuthToken } from '@nebular/auth';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
@@ -12,33 +12,52 @@ import { LayoutService } from '../../../@core/data/layout.service';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-
-  @Input() position = 'normal';
+  @Input()
+  position = 'normal';
 
   user: any;
 
-  userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+  userMenu = [
+    {
+      title: 'Profile',
+      icon: 'ion-person',
+      link: '/pages/iot-dashboard',
+    },
+    {
+      title: 'Log out',
+      icon: 'ion-log-out',
+      link: '/auth/logout',
+    },
+  ];
 
   constructor(
-              private sidebarService: NbSidebarService,
-              private menuService: NbMenuService,
-              private authService: NbAuthService,
-              private userService: UserService,
-              private analyticsService: AnalyticsService,
-              private layoutService: LayoutService) {
-      this.authService.onTokenChange()
-        .subscribe((token: NbAuthJWTToken) => {
-
-          if (token.isValid()) {
-            this.user = token.getPayload();
-          }
-
-        });
+    private sidebarService: NbSidebarService,
+    private menuService: NbMenuService,
+    private authService: NbAuthService,
+    private userService: UserService,
+    private analyticsService: AnalyticsService,
+    private layoutService: LayoutService,
+  ) {
+    this.authService.onTokenChange().subscribe((token: NbAuthToken) => {
+      if (token.isValid()) {
+        //this.getPayload();
+        //console.log(token.getPayload());
+      }
+    });
   }
 
   ngOnInit() {
-    this.userService.getUsers()
-      .subscribe((users: any) => this.user = users.nick);
+    // this.userService
+    //   .getUsers()
+    //   .subscribe((users: any) => (this.user = users.nick));
+    this.getPayload();
+  }
+
+  getPayload() {
+    this.userService.getUser().subscribe((user: any) => {
+      this.user = user.data;
+      // console.log(this.user);
+    });
   }
 
   toggleSidebar(): boolean {

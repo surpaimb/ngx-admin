@@ -49,18 +49,17 @@ export class CylInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
-    const JWT = `Bearer ${this.authService.getToken()}`;
+    let token = '';
+    this.authService.getToken().subscribe(rs => {
+      token = rs.toString();
+    });
     const clonedRequest = req.clone({
       headers: req.headers
-        .set('Authorization', JWT)
+        .set('Authorization', `Bearer ${token}`)
         .set('Cyl-Client', this._client_type),
     });
     return next.handle(clonedRequest).pipe(
       mergeMap((event: any) => {
-        // 正常返回，处理具体返回参数
-        if (event instanceof HttpResponse && event.status === 200)
-          // 具体处理请求返回数据
-          return this.handleData(event);
         return of(event);
       }),
       catchError((err: HttpErrorResponse) => this.handleData(err)),
@@ -72,14 +71,6 @@ export class CylInterceptor implements HttpInterceptor {
   ): Observable<any> {
     // 业务处理：一些通用操作
     switch (event.status) {
-      case 200:
-        // if (event instanceof HttpResponse) {
-        //   const body: any = event.body
-        //   if (body && body.rc == 3) {
-        //     this.goTo()
-        //   }
-        // }
-        break;
       case 401:
         // 未登录状态码
         this.goToLogin();
