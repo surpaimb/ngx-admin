@@ -5,8 +5,8 @@ import {
   NbAuthComponent,
   NbLoginComponent,
   NbLogoutComponent,
-  NbRegisterComponent,
-  NbRequestPasswordComponent,
+  // NbRegisterComponent,
+  // NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
 

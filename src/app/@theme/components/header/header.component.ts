@@ -40,8 +40,8 @@ export class HeaderComponent implements OnInit {
   ) {
     this.authService.onTokenChange().subscribe((token: NbAuthToken) => {
       if (token.isValid()) {
-        //this.getPayload();
-        //console.log(token.getPayload());
+        // this.getPayload();
+        // console.log(token.getPayload());
       }
     });
   }

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { of as observableOf, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-let counter = 0;
+// let counter = 0;
 
 @Injectable()
 export class UserService {
